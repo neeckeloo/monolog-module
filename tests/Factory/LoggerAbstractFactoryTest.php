@@ -22,11 +22,13 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
     public function testCanCreateServiceWithName($name, $expected)
     {
         $config = [
-            'loggers' => [
-                'foo' => [
-                    'name' => 'Monolog\Handler\NullHandler',
+            'monolog' => [
+                'loggers' => [
+                    'foo' => [
+                        'name' => 'Monolog\Handler\NullHandler',
+                    ],
+                    'bar' => [],
                 ],
-                'bar' => [],
             ],
         ];
 
@@ -58,7 +60,7 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
             ->expects($this->at(0))
             ->method('get')
             ->with('Config')
-            ->will($this->returnValue([]));
+            ->will($this->returnValue(['monolog' => []]));
 
         $serviceLocator
             ->expects($this->at(1))

@@ -33,6 +33,14 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateLoggerWithHandler()
     {
+        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator
+            ->expects($this->once())
+            ->method('get')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(null));
+        $this->factory->setServiceLocator($serviceLocator);
+
         $config = [
             'name' => 'foo',
             'handlers' => [
@@ -50,6 +58,14 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateLoggerWithHandlerIncludingOptions()
     {
+        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator
+            ->expects($this->once())
+            ->method('get')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(null));
+        $this->factory->setServiceLocator($serviceLocator);
+
         $level = Logger::CRITICAL;
         $config = [
             'name' => 'foo',
@@ -103,6 +119,19 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateLoggerWithHandlerAndFormatter()
     {
+        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator
+            ->expects($this->at(0))
+            ->method('get')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(null));
+        $serviceLocator
+            ->expects($this->at(1))
+            ->method('get')
+            ->with('MonologModule\Formatter\FormatterPluginManager')
+            ->will($this->returnValue(null));
+        $this->factory->setServiceLocator($serviceLocator);
+
         $config = [
             'name' => 'foo',
             'handlers' => [
@@ -126,6 +155,19 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testCreateLoggerWithHandlerAndFormatterIncludingOptions()
     {
+        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator
+            ->expects($this->at(0))
+            ->method('get')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(null));
+        $serviceLocator
+            ->expects($this->at(1))
+            ->method('get')
+            ->with('MonologModule\Formatter\FormatterPluginManager')
+            ->will($this->returnValue(null));
+        $this->factory->setServiceLocator($serviceLocator);
+
         $batchMode = JsonFormatter::BATCH_MODE_NEWLINES;
         $config = [
             'name' => 'foo',

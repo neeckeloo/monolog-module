@@ -44,10 +44,6 @@ class LoggerFactory
      */
     private function createHandler($handler)
     {
-        if (is_string($handler) && $this->serviceLocator->has($handler)) {
-            return $this->serviceLocator->get($handler);
-        }
-
         if (!isset($handler['name'])) {
             throw new Exception\RuntimeException('You must provide a name for each handler');
         }
@@ -58,7 +54,8 @@ class LoggerFactory
             ));
         }
 
-        $instance = $this->createInstanceFromParams($handler);
+        $handlerPluginManager = $this->serviceLocator->get('MonologModule\Handler\HandlerPluginManager');
+        $instance             = $this->createInstanceFromParams($handler, $handlerPluginManager);
 
         if (isset($handler['formatter'])) {
             $formatter = $this->createFormatter($handler['formatter']);
@@ -74,10 +71,6 @@ class LoggerFactory
      */
     private function createFormatter($formatter)
     {
-        if (is_string($formatter) && $this->serviceLocator->has($formatter)) {
-            return $this->serviceLocator->get($formatter);
-        }
-
         if (!isset($formatter['name'])) {
             throw new Exception\RuntimeException('You must provide a name for each formatter');
         }
@@ -88,19 +81,31 @@ class LoggerFactory
             ));
         }
 
-        return $this->createInstanceFromParams($formatter);
+        $formatterPluginManager = $this->serviceLocator->get('MonologModule\Formatter\FormatterPluginManager');
+
+        return $this->createInstanceFromParams($formatter, $formatterPluginManager);
     }
 
     /**
      * @param  array $params
+     * @param  \Zend\ServiceManager\AbstractPluginManager|null $pluginManager
      * @return object
      */
-    private function createInstanceFromParams($params)
+    private function createInstanceFromParams($params, $pluginManager = null)
     {
-        if (isset($params['options']) && is_array($params['options']) && !empty($params['options'])) {
+        $options = [];
+        if (isset($params['options']) && is_array($params['options'])) {
+            $options = $params['options'];
+        }
+
+        if ($pluginManager && $pluginManager->has($params['name'])) {
+            return $pluginManager->get($params['name'], $options);
+        }
+
+        if (!empty($options)) {
             $reflection = new ReflectionClass($params['name']);
 
-            return call_user_func_array(array($reflection, 'newInstance'), $params['options']);
+            return call_user_func_array(array($reflection, 'newInstance'), $options);
         }
 
         $class = $params['name'];

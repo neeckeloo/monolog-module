@@ -12,7 +12,7 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
         $config       = $serviceLocator->get('Config');
-        $loggerConfig = $this->getLoggerConfig($config, $requestedName);
+        $loggerConfig = $this->getLoggerConfig($config['monolog'], $requestedName);
 
         return !empty($loggerConfig);
     }
@@ -23,7 +23,7 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
         $config       = $serviceLocator->get('Config');
-        $loggerConfig = $this->getLoggerConfig($config, $requestedName);
+        $loggerConfig = $this->getLoggerConfig($config['monolog'], $requestedName);
 
         $factory = $serviceLocator->get('MonologModule\Factory\LoggerFactory');
 

@@ -4,8 +4,8 @@ MonologModule
 Monolog integration into Zend Framework 2
 
 [![Build Status](https://img.shields.io/travis/neeckeloo/MonologModule.svg?style=flat)](http://travis-ci.org/neeckeloo/MonologModule)
-[![Latest Stable Version](http://img.shields.io/packagist/v/neeckeloo/MonologModule.svg?style=flat)](https://packagist.org/packages/neeckeloo/monolog-module)
-[![Total Downloads](http://img.shields.io/packagist/dt/neeckeloo/MonologModule.svg?style=flat)](https://packagist.org/packages/neeckeloo/monolog-module)
+[![Latest Stable Version](http://img.shields.io/packagist/v/neeckeloo/monolog-module.svg?style=flat)](https://packagist.org/packages/neeckeloo/monolog-module)
+[![Total Downloads](http://img.shields.io/packagist/dt/neeckeloo/monolog-module.svg?style=flat)](https://packagist.org/packages/neeckeloo/monolog-module)
 [![Coverage Status](http://img.shields.io/coveralls/neeckeloo/MonologModule.svg?style=flat)](https://coveralls.io/r/neeckeloo/MonologModule)
 [![Dependencies Status](https://www.versioneye.com/user/projects/5465c709f8a4ae1c9900010d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5465c709f8a4ae1c9900010d)
 

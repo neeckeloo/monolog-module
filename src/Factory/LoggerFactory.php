@@ -5,7 +5,7 @@ use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Logger;
 use MonologModule\Exception;
-use Zend\Code\Reflection\ClassReflection;
+use ReflectionClass;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 class LoggerFactory
@@ -98,7 +98,7 @@ class LoggerFactory
     private function createInstanceFromParams($params)
     {
         if (isset($params['options']) && is_array($params['options']) && !empty($params['options'])) {
-            $reflection = new ClassReflection($params['name']);
+            $reflection = new ReflectionClass($params['name']);
 
             return call_user_func_array(array($reflection, 'newInstance'), $params['options']);
         }

@@ -14,7 +14,11 @@ return [
     ],
 
     'monolog' => [
-        'handler_plugin_manager' => [],
+        'handler_plugin_manager' => [
+            'factories' => [
+                'Monolog\Handler\GelfHandler' => 'MonologModule\Handler\Factory\GelfHandlerFactory',
+            ],
+        ],
         'formatter_plugin_manager' => [],
     ],
 ];

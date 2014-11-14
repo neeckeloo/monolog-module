@@ -20,7 +20,7 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
         $logger = $this->factory->create([
             'name' => 'foo',
         ]);
-        $this->assertInstanceOf(Logger::class, $logger);
+        $this->assertInstanceOf('Monolog\Logger', $logger);
     }
 
     /**
@@ -42,7 +42,7 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
             ],
         ];
         $logger = $this->factory->create($config);
-        $this->assertInstanceOf(Logger::class, $logger);
+        $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
         $this->assertInstanceOf('Monolog\Handler\NullHandler', $handler);
@@ -63,7 +63,7 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
             ],
         ];
         $logger = $this->factory->create($config);
-        $this->assertInstanceOf(Logger::class, $logger);
+        $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
         $this->assertInstanceOf('Monolog\Handler\NullHandler', $handler);
@@ -109,19 +109,19 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
                 'default' => [
                     'name'      => 'Monolog\Handler\NullHandler',
                     'formatter' => [
-                        'name' => JsonFormatter::class,
+                        'name' => 'Monolog\Formatter\JsonFormatter',
                     ],
                 ],
             ],
         ];
         $logger = $this->factory->create($config);
-        $this->assertInstanceOf(Logger::class, $logger);
+        $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
         $this->assertInstanceOf('Monolog\Handler\NullHandler', $handler);
 
         $formatter = $handler->getFormatter();
-        $this->assertInstanceOf(JsonFormatter::class, $formatter);
+        $this->assertInstanceOf('Monolog\Formatter\JsonFormatter', $formatter);
     }
 
     public function testCreateLoggerWithHandlerAndFormatterIncludingOptions()
@@ -133,7 +133,7 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
                 'default' => [
                     'name'      => 'Monolog\Handler\NullHandler',
                     'formatter' => [
-                        'name' => JsonFormatter::class,
+                        'name' => 'Monolog\Formatter\JsonFormatter',
                         'options' => [
                             'batchMode' => $batchMode,
                         ],
@@ -142,13 +142,13 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
             ],
         ];
         $logger = $this->factory->create($config);
-        $this->assertInstanceOf(Logger::class, $logger);
+        $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
         $this->assertInstanceOf('Monolog\Handler\NullHandler', $handler);
 
         $formatter = $handler->getFormatter();
-        $this->assertInstanceOf(JsonFormatter::class, $formatter);
+        $this->assertInstanceOf('Monolog\Formatter\JsonFormatter', $formatter);
 
         $this->assertEquals($batchMode, $formatter->getBatchMode());
     }
@@ -201,7 +201,7 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
             ],
         ];
         $logger = $this->factory->create($config);
-        $this->assertInstanceOf(Logger::class, $logger);
+        $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $processor = $logger->popProcessor();
         $this->assertInstanceOf('Monolog\Processor\TagProcessor', $processor);

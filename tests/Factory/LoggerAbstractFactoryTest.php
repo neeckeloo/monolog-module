@@ -4,7 +4,6 @@ namespace MonologModuleTest\Factory;
 use Monolog\Logger;
 use MonologModule\Factory\LoggerAbstractFactory;
 use PHPUnit_Framework_TestCase;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -31,7 +30,7 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $serviceLocator = $this->getMock(ServiceLocatorInterface::class);
+        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator
             ->expects($this->once())
             ->method('get')
@@ -53,7 +52,7 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
             ->method('create')
             ->will($this->returnValue($logger));
 
-        $serviceLocator = $this->getMock(ServiceLocatorInterface::class);
+        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
 
         $serviceLocator
             ->expects($this->at(0))
@@ -69,6 +68,6 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
 
         $abstractFactory = new LoggerAbstractFactory();
         $instance = $abstractFactory->createServiceWithName($serviceLocator, null, 'foo');
-        $this->assertInstanceOf(Logger::class, $instance);
+        $this->assertInstanceOf('Monolog\Logger', $instance);
     }
 }

@@ -37,34 +37,85 @@ Alternatively, you can also add manually the dependency in your `composer.json` 
 
 Enable the module by adding `MonologModule` key in your `application.config.php` file.
 
-Configuration
--------------
+Usage
+-----
+
+### Configuring a logger
+
+This is the configuration of a logger that can be retrieved with key ```Log\App``` in the service manager. A channel name ```default``` is also defined to identify to which part of the application a record is related.
 
 ```php
 return [
-    'loggers' => [
-        'Log\App' => [
-            'name' => 'default',
-            'handlers' => [
-                'default' => [
-                    'name' => 'Monolog\Handler\StreamHandler',
-                    'options' => [
-                        'path'   => 'data/log/application.log',
-                        'level'  => \Monolog\Logger::DEBUG,
-                    ],
-                ],
-            ],
-            'processors' => [
-                'Monolog\Processor\UidProcessor',
-                'Monolog\Processor\WebProcessor',
+    'monolog' => [
+        'loggers' => [
+            'Log\App' => [
+                'name' => 'default',
             ],
         ],
     ],
 ];
 ```
 
-Usage
------
+### Adding a handler
+
+The logger itself does not know how to handle a record. It delegates it to some handlers. The code above registers two handlers in the stack to allow handling records in two different ways.
+
+```php
+return [
+    'monolog' => [
+        'loggers' => [
+            'Log\App' => [
+                'name' => 'default',
+                'handlers' => [
+                    'stream' => [
+                        'name' => 'Monolog\Handler\StreamHandler',
+                        'options' => [
+                            'path'   => 'data/log/application.log',
+                            'level'  => \Monolog\Logger::DEBUG,
+                        ],
+                    ],
+                    'fire_php' => [
+                        'name' => 'Monolog\Handler\FirePHPHandler',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+```
+
+### Using processors
+
+If you want to add extra information (tags, user IP, ...) to the records before they are handled, you should add some processors. The code above adds two processors that add an unique identifier and the current request URI, request method and client IP to a log record.
+
+```php
+return [
+    'monolog' => [
+        'loggers' => [
+            'Log\App' => [
+                'name' => 'default',
+                'handlers' => [
+                    'default' => [
+                        'name' => 'Monolog\Handler\StreamHandler',
+                        'options' => [
+                            'path'   => 'data/log/application.log',
+                            'level'  => \Monolog\Logger::DEBUG,
+                        ],
+                    ],
+                ],
+                'processors' => [
+                    'Monolog\Processor\UidProcessor',
+                    'Monolog\Processor\WebProcessor',
+                ],
+            ],
+        ],
+    ],
+];
+```
+
+### Retrieving a logger
+
+Once the configuration is complete, you can retrieve an instance of the logger as below:
 
 ```php
 $logger = $serviceManager->get('Log\App');

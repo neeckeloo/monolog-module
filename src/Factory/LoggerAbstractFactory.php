@@ -26,6 +26,7 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
         $loggerConfig = $this->getLoggerConfig($config['monolog'], $requestedName);
 
         $factory = $serviceLocator->get('MonologModule\Factory\LoggerFactory');
+        $factory->setServiceLocator($serviceLocator);
 
         return $factory->create($loggerConfig);
     }

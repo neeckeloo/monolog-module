@@ -54,7 +54,7 @@ class LoggerFactory
             ));
         }
 
-        $handlerPluginManager = $this->serviceLocator->get('MonologModule\Handler\HandlerPluginManager');
+        $handlerPluginManager = $this->getPluginManager('MonologModule\Handler\HandlerPluginManager');
         $instance             = $this->createInstanceFromParams($handler, $handlerPluginManager);
 
         if (isset($handler['formatter'])) {
@@ -81,7 +81,7 @@ class LoggerFactory
             ));
         }
 
-        $formatterPluginManager = $this->serviceLocator->get('MonologModule\Formatter\FormatterPluginManager');
+        $formatterPluginManager = $this->getPluginManager('MonologModule\Formatter\FormatterPluginManager');
 
         return $this->createInstanceFromParams($formatter, $formatterPluginManager);
     }
@@ -130,5 +130,18 @@ class LoggerFactory
         throw new Exception\RuntimeException(
             'Processor must be a callable or the FQCN of an invokable class'
         );
+    }
+
+    /**
+     * @param  string $name
+     * @return \Zend\ServiceManager\AbstractPluginManager
+     */
+    protected function getPluginManager($name)
+    {
+        if (!$this->serviceLocator || !$this->serviceLocator->has($name)) {
+            return null;
+        }
+
+        return $this->serviceLocator->get($name);
     }
 }

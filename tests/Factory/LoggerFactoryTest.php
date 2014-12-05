@@ -36,6 +36,11 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator
             ->expects($this->once())
+            ->method('has')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(true));
+        $serviceLocator
+            ->expects($this->once())
             ->method('get')
             ->with('MonologModule\Handler\HandlerPluginManager')
             ->will($this->returnValue(null));
@@ -59,6 +64,11 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
     public function testCreateLoggerWithHandlerIncludingOptions()
     {
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator
+            ->expects($this->once())
+            ->method('has')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(true));
         $serviceLocator
             ->expects($this->once())
             ->method('get')
@@ -122,11 +132,21 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator
             ->expects($this->at(0))
+            ->method('has')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(true));
+        $serviceLocator
+            ->expects($this->at(1))
             ->method('get')
             ->with('MonologModule\Handler\HandlerPluginManager')
             ->will($this->returnValue(null));
         $serviceLocator
-            ->expects($this->at(1))
+            ->expects($this->at(2))
+            ->method('has')
+            ->with('MonologModule\Formatter\FormatterPluginManager')
+            ->will($this->returnValue(true));
+        $serviceLocator
+            ->expects($this->at(3))
             ->method('get')
             ->with('MonologModule\Formatter\FormatterPluginManager')
             ->will($this->returnValue(null));
@@ -158,11 +178,21 @@ class LoggerFactoryTest extends PHPUnit_Framework_TestCase
         $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
         $serviceLocator
             ->expects($this->at(0))
+            ->method('has')
+            ->with('MonologModule\Handler\HandlerPluginManager')
+            ->will($this->returnValue(true));
+        $serviceLocator
+            ->expects($this->at(1))
             ->method('get')
             ->with('MonologModule\Handler\HandlerPluginManager')
             ->will($this->returnValue(null));
         $serviceLocator
-            ->expects($this->at(1))
+            ->expects($this->at(2))
+            ->method('has')
+            ->with('MonologModule\Formatter\FormatterPluginManager')
+            ->will($this->returnValue(true));
+        $serviceLocator
+            ->expects($this->at(3))
             ->method('get')
             ->with('MonologModule\Formatter\FormatterPluginManager')
             ->will($this->returnValue(null));

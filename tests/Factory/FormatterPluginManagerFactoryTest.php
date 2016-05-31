@@ -30,6 +30,10 @@ class FormatterPluginManagerFactoryTest extends PHPUnit_Framework_TestCase
         $formatterPluginManager = $formatterPluginManagerFactory->createService($serviceLocator);
         $this->assertInstanceOf('MonologModule\Formatter\FormatterPluginManager', $formatterPluginManager);
 
+        // Assert that a ServiceLocatorInterface service has been injected.
+        // If it would be injected via the deprecated ServiceLocatorAwareInitializer, a E_USER_DEPRECATED would have been triggered.
+        $this->assertInstanceOf('Zend\ServiceManager\ServiceLocatorInterface', $formatterPluginManager->getServiceLocator());
+
         $service = $formatterPluginManager->get('foo');
         $this->assertInstanceOf('Monolog\Formatter\FormatterInterface', $service);
     }

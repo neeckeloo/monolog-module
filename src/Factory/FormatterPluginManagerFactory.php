@@ -16,7 +16,9 @@ class FormatterPluginManagerFactory implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
         $configInstance = new Config($config['monolog']['formatter_plugin_manager']);
+        $formatterPluginManager = new FormatterPluginManager($configInstance);
+        $formatterPluginManager->setServiceLocator($serviceLocator);
 
-        return new FormatterPluginManager($configInstance);
+        return $formatterPluginManager;
     }
 }

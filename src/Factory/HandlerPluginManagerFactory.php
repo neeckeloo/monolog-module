@@ -16,7 +16,9 @@ class HandlerPluginManagerFactory implements FactoryInterface
     {
         $config = $serviceLocator->get('Config');
         $configInstance = new Config($config['monolog']['handler_plugin_manager']);
+        $handlerPluginManager = new HandlerPluginManager($configInstance);
+        $handlerPluginManager->setServiceLocator($serviceLocator);
 
-        return new HandlerPluginManager($configInstance);
+        return $handlerPluginManager;
     }
 }

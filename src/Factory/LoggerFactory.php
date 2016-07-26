@@ -1,16 +1,26 @@
 <?php
 namespace MonologModule\Factory;
 
+use Interop\Container\ContainerInterface;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Logger;
+use MonologModule\Formatter\FormatterPluginManager;
+use MonologModule\Handler\HandlerPluginManager;
 use MonologModule\Exception;
 use ReflectionClass;
-use Zend\ServiceManager\ServiceLocatorAwareTrait;
 
 class LoggerFactory
 {
-    use ServiceLocatorAwareTrait;
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * @param  array $config
@@ -54,7 +64,7 @@ class LoggerFactory
             ));
         }
 
-        $handlerPluginManager = $this->getPluginManager('MonologModule\Handler\HandlerPluginManager');
+        $handlerPluginManager = $this->getPluginManager(HandlerPluginManager::class);
         $instance             = $this->createInstanceFromParams($handler, $handlerPluginManager);
 
         if (isset($handler['formatter'])) {
@@ -81,7 +91,7 @@ class LoggerFactory
             ));
         }
 
-        $formatterPluginManager = $this->getPluginManager('MonologModule\Formatter\FormatterPluginManager');
+        $formatterPluginManager = $this->getPluginManager(FormatterPluginManager::class);
 
         return $this->createInstanceFromParams($formatter, $formatterPluginManager);
     }
@@ -115,7 +125,7 @@ class LoggerFactory
 
     /**
      * @param  mixed $processor
-     * @return Callable
+     * @return callable
      */
     private function createProcessor($processor)
     {
@@ -138,10 +148,10 @@ class LoggerFactory
      */
     protected function getPluginManager($name)
     {
-        if (!$this->serviceLocator || !$this->serviceLocator->has($name)) {
+        if (!$this->container || !$this->container->has($name)) {
             return null;
         }
 
-        return $this->serviceLocator->get($name);
+        return $this->container->get($name);
     }
 }

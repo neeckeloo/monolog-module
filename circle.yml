@@ -1,6 +1,0 @@
-machine:
-    php:
-        version: 5.4.4
-test:
-    override:
-        - vendor/bin/phpunit --configuration phpunit.xml.dist

@@ -2,13 +2,15 @@
 namespace MonologModuleTest\Handler\Factory;
 
 use MonologModule\Handler\Factory\GelfHandlerFactory;
+use Monolog\Handler\GelfHandler;
 use PHPUnit_Framework_TestCase;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class GelfHandlerFactoryTest extends PHPUnit_Framework_TestCase
 {
     public function testInstantiateGelfHandler()
     {
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
 
         $gelfHandlerFactory = new GelfHandlerFactory([
             'host' => 'domain.com',
@@ -16,26 +18,26 @@ class GelfHandlerFactoryTest extends PHPUnit_Framework_TestCase
         ]);
         $gelfHandler = $gelfHandlerFactory->createService($serviceLocator);
 
-        $this->assertInstanceOf('Monolog\Handler\GelfHandler', $gelfHandler);
+        $this->assertInstanceOf(GelfHandler::class, $gelfHandler);
     }
 
     /**
-     * @expectedException MonologModule\Exception\RuntimeException
+     * @expectedException \MonologModule\Exception\RuntimeException
      */
     public function testInstantiateGelfHandlerWithoutHost()
     {
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
 
         $gelfHandlerFactory = new GelfHandlerFactory(['port' => 123]);
         $gelfHandlerFactory->createService($serviceLocator);
     }
 
     /**
-     * @expectedException MonologModule\Exception\RuntimeException
+     * @expectedException \MonologModule\Exception\RuntimeException
      */
     public function testInstantiateGelfHandlerWithoutPort()
     {
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
 
         $gelfHandlerFactory = new GelfHandlerFactory(['host' => 'domain.com']);
         $gelfHandlerFactory->createService($serviceLocator);

@@ -4,23 +4,34 @@ namespace MonologModule\Handler;
 use MonologModule\Exception;
 use Monolog\Handler\HandlerInterface;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 
 class HandlerPluginManager extends AbstractPluginManager
 {
+    protected $instanceOf = HandlerInterface::class;
+
     /**
-     * @param  mixed $plugin
-     * @return void
+     * @param  mixed $instance
+     * @throws InvalidServiceException
+     */
+    public function validate($instance)
+    {
+        if (! $instance instanceof $this->instanceOf) {
+            throw new InvalidServiceException(sprintf(
+                '%s can only create instances of %s; %s is invalid',
+                get_class($this),
+                $this->instanceOf,
+                (is_object($instance) ? get_class($instance) : gettype($instance))
+            ));
+        }
+    }
+
+    /**
+     * @param  mixed $instance
      * @throws Exception\InvalidArgumentException
      */
-    public function validatePlugin($plugin)
+    public function validatePlugin($instance)
     {
-        if ($plugin instanceof HandlerInterface) {
-            return;
-        }
-
-        throw new Exception\InvalidArgumentException(sprintf(
-            'Plugin of type %s is invalid; must implement Monolog\Handler\HandlerInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin))
-        ));
+        $this->validate($instance);
     }
 }

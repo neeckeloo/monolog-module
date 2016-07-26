@@ -1,6 +1,7 @@
 <?php
 namespace MonologModule\Factory;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -9,9 +10,9 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName)
     {
-        $config       = $serviceLocator->get('Config');
+        $config       = $container->get('Config');
         $loggerConfig = $this->getLoggerConfig($config['monolog'], $requestedName);
 
         return !empty($loggerConfig);
@@ -20,15 +21,31 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
     {
-        $config       = $serviceLocator->get('Config');
+        return $this->canCreate($serviceLocator, $requestedName);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config       = $container->get('Config');
         $loggerConfig = $this->getLoggerConfig($config['monolog'], $requestedName);
 
-        $factory = $serviceLocator->get('MonologModule\Factory\LoggerFactory');
-        $factory->setServiceLocator($serviceLocator);
+        $factory = $container->get(LoggerFactory::class);
+        $factory->setContainer($container);
 
         return $factory->create($loggerConfig);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    {
+        return $this->__invoke($serviceLocator, $requestedName);
     }
 
     /**

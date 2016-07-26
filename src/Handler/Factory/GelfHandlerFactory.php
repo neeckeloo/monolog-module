@@ -2,9 +2,10 @@
 namespace MonologModule\Handler\Factory;
 
 use Gelf;
+use Interop\Container\ContainerInterface;
 use Monolog\Handler\GelfHandler;
+use Monolog\Logger;
 use MonologModule\Exception;
-use ReflectionClass;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -23,11 +24,7 @@ class GelfHandlerFactory implements FactoryInterface
         $this->options = $options;
     }
 
-    /**
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return GelfHandler
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         if (!isset($this->options['host'])) {
             throw new Exception\RuntimeException('Gelf handler needs a host value');
@@ -40,17 +37,23 @@ class GelfHandlerFactory implements FactoryInterface
             new Gelf\Transport\UdpTransport($this->options['host'], $this->options['port'])
         );
 
-        $params = ['publisher' => $publisher];
-
         if (isset($this->options['level'])) {
-            $params['level'] = $this->options['level'];
+            $level = $this->options['level'];
+        } else {
+            $level = Logger::DEBUG;
         }
+
         if (isset($this->options['bubble'])) {
-            $params['bubble'] = $this->options['bubble'];
+            $bubble = $this->options['bubble'];
+        } else {
+            $bubble = true;
         }
 
-        $reflection = new ReflectionClass('Monolog\Handler\GelfHandler');
+        return new GelfHandler($publisher, $level, $bubble);
+    }
 
-        return call_user_func_array(array($reflection, 'newInstance'), $params);
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this->__invoke($serviceLocator, GelfHandler::class);
     }
 }

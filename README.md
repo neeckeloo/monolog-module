@@ -12,9 +12,9 @@ Monolog integration into Zend Framework
 Requirements
 ------------
 
-* PHP ^5.6 || ^7.0
+* PHP 5.6, PHP 7.0 or higher
 * [Monolog 1.11 or higher](http://www.github.com/Seldaek/monolog)
-* [Zend Framework ^2.7.5 || ^3.0.3](http://www.github.com/zendframework/zf2)
+* [Zend Framework Service Manager component 2.7.5/3.0.3 or higher](http://www.github.com/zendframework/zf2)
 
 Installation
 ------------

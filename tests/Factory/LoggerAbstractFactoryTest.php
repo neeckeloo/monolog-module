@@ -1,9 +1,12 @@
 <?php
 namespace MonologModuleTest\Factory;
 
+use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use MonologModule\Factory\LoggerAbstractFactory;
+use MonologModule\Factory\LoggerFactory;
 use PHPUnit_Framework_TestCase;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -25,16 +28,15 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
             'monolog' => [
                 'loggers' => [
                     'foo' => [
-                        'name' => 'Monolog\Handler\NullHandler',
+                        'name' => NullHandler::class,
                     ],
                     'bar' => [],
                 ],
             ],
         ];
 
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
         $serviceLocator
-            ->expects($this->once())
             ->method('get')
             ->with('Config')
             ->will($this->returnValue($config));
@@ -48,13 +50,12 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
     {
         $logger = new Logger('foo');
 
-        $loggerFactory = $this->getMock('MonologModule\Factory\LoggerFactory');
+        $loggerFactory = $this->createMock(LoggerFactory::class);
         $loggerFactory
-            ->expects($this->once())
             ->method('create')
             ->will($this->returnValue($logger));
 
-        $serviceLocator = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
 
         $serviceLocator
             ->expects($this->at(0))
@@ -65,7 +66,7 @@ class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
         $serviceLocator
             ->expects($this->at(1))
             ->method('get')
-            ->with('MonologModule\Factory\LoggerFactory')
+            ->with(LoggerFactory::class)
             ->will($this->returnValue($loggerFactory));
 
         $abstractFactory = new LoggerAbstractFactory();

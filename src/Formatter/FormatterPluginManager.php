@@ -4,23 +4,34 @@ namespace MonologModule\Formatter;
 use MonologModule\Exception;
 use Monolog\Formatter\FormatterInterface;
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 
 class FormatterPluginManager extends AbstractPluginManager
 {
+    protected $instanceOf = FormatterInterface::class;
+
     /**
-     * @param  mixed $plugin
-     * @return void
+     * @param  mixed $instance
+     * @throws InvalidServiceException
+     */
+    public function validate($instance)
+    {
+        if (! $instance instanceof $this->instanceOf) {
+            throw new InvalidServiceException(sprintf(
+                '%s can only create instances of %s; %s is invalid',
+                get_class($this),
+                $this->instanceOf,
+                (is_object($instance) ? get_class($instance) : gettype($instance))
+            ));
+        }
+    }
+
+    /**
+     * @param  mixed $instance
      * @throws Exception\InvalidArgumentException
      */
-    public function validatePlugin($plugin)
+    public function validatePlugin($instance)
     {
-        if ($plugin instanceof FormatterInterface) {
-            return;
-        }
-
-        throw new Exception\InvalidArgumentException(sprintf(
-            'Plugin of type %s is invalid; must implement Monolog\Formatter\FormatterInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin))
-        ));
+        $this->validate($instance);
     }
 }

@@ -1,28 +1,32 @@
 <?php
 namespace MonologModuleTest\Handler;
 
+use Monolog\Handler\HandlerInterface;
 use MonologModule\Handler\HandlerPluginManager;
 use PHPUnit_Framework_TestCase;
-use Stdclass;
+use stdClass;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class HandlerPluginManagerTest extends PHPUnit_Framework_TestCase
 {
     public function testValidatePlugin()
     {
-        $handlerPluginManager = new HandlerPluginManager();
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $handlerPluginManager = new HandlerPluginManager($serviceLocator);
 
-        $handler = $this->getMock('Monolog\Handler\HandlerInterface');
+        $handler = $this->createMock(HandlerInterface::class);
         $handlerPluginManager->validatePlugin($handler);
     }
 
     /**
-     * @expectedException MonologModule\Exception\InvalidArgumentException
+     * @expectedException \Zend\ServiceManager\Exception\InvalidServiceException
      */
     public function testValidateInvalidPlugin()
     {
-        $handlerPluginManager = new HandlerPluginManager();
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $handlerPluginManager = new HandlerPluginManager($serviceLocator);
 
-        $handler = new Stdclass;
+        $handler = new stdClass;
         $handlerPluginManager->validatePlugin($handler);
     }
 }

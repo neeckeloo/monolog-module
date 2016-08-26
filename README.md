@@ -1,7 +1,7 @@
 MonologModule
 =============
 
-Monolog integration into Zend Framework 2
+Monolog integration into Zend Framework
 
 [![Build Status](https://img.shields.io/travis/neeckeloo/MonologModule.svg?style=flat)](http://travis-ci.org/neeckeloo/MonologModule)
 [![Latest Stable Version](http://img.shields.io/packagist/v/neeckeloo/monolog-module.svg?style=flat)](https://packagist.org/packages/neeckeloo/monolog-module)
@@ -12,9 +12,9 @@ Monolog integration into Zend Framework 2
 Requirements
 ------------
 
-* PHP 5.4 or higher
+* PHP 5.6, PHP 7.0 or higher
 * [Monolog 1.11 or higher](http://www.github.com/Seldaek/monolog)
-* [Zend Framework 2.3 or higher](http://www.github.com/zendframework/zf2)
+* [Zend Framework Service Manager component 2.7.5/3.0.3 or higher](http://www.github.com/zendframework/zf2)
 
 Installation
 ------------
@@ -68,14 +68,14 @@ return [
                 'name' => 'default',
                 'handlers' => [
                     'stream' => [
-                        'name' => 'Monolog\Handler\StreamHandler',
+                        'name' => StreamHandler::class,
                         'options' => [
                             'path'   => 'data/log/application.log',
-                            'level'  => \Monolog\Logger::DEBUG,
+                            'level'  => Logger::DEBUG,
                         ],
                     ],
                     'fire_php' => [
-                        'name' => 'Monolog\Handler\FirePHPHandler',
+                        'name' => FirePHPHandler::class,
                     ],
                 ],
             ],
@@ -96,16 +96,16 @@ return [
                 'name' => 'default',
                 'handlers' => [
                     'default' => [
-                        'name' => 'Monolog\Handler\StreamHandler',
+                        'name' => StreamHandler::class,
                         'options' => [
                             'path'   => 'data/log/application.log',
-                            'level'  => \Monolog\Logger::DEBUG,
+                            'level'  => Logger::DEBUG,
                         ],
                     ],
                 ],
                 'processors' => [
-                    'Monolog\Processor\UidProcessor',
-                    'Monolog\Processor\WebProcessor',
+                    UidProcessor::class,
+                    WebProcessor::class,
                 ],
             ],
         ],

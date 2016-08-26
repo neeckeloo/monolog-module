@@ -1,24 +1,27 @@
 <?php
 namespace MonologModule\Factory;
 
+use Interop\Container\ContainerInterface;
 use MonologModule\Formatter\FormatterPluginManager;
-use Zend\ServiceManager\Config;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class FormatterPluginManagerFactory implements FactoryInterface
 {
-    /**
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return FormatterPluginManager
-     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $config = $container->get('Config');
+        
+        $formatterPluginManager = new FormatterPluginManager(
+            $container,
+            $config['monolog']['formatter_plugin_manager']
+        );
+        $formatterPluginManager->setServiceLocator($container);
+        return $formatterPluginManager;
+    }
+    
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('Config');
-        $configInstance = new Config($config['monolog']['formatter_plugin_manager']);
-        $formatterPluginManager = new FormatterPluginManager($configInstance);
-        $formatterPluginManager->setServiceLocator($serviceLocator);
-
-        return $formatterPluginManager;
+        return $this->__invoke($serviceLocator, FormatterPluginManager::class);
     }
 }

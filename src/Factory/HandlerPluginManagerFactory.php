@@ -16,7 +16,9 @@ class HandlerPluginManagerFactory implements FactoryInterface
             $container,
             $config['monolog']['handler_plugin_manager']
         );
-        $handlerPluginManager->setServiceLocator($container);
+        if (class_exists('Zend\Version\Version') && \Zend\Version\Version::compareVersion('3.0') >=1) {
+            $handlerPluginManager->setServiceLocator($container);
+        }
         return $handlerPluginManager;
     }
     

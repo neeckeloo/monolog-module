@@ -16,7 +16,9 @@ class FormatterPluginManagerFactory implements FactoryInterface
             $container,
             $config['monolog']['formatter_plugin_manager']
         );
-        $formatterPluginManager->setServiceLocator($container);
+        if (class_exists('Zend\Version\Version') && \Zend\Version\Version::compareVersion('3.0') >=1) {
+            $formatterPluginManager->setServiceLocator($container);
+        }
         return $formatterPluginManager;
     }
     

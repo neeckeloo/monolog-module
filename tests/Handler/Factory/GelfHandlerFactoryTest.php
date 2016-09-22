@@ -21,6 +21,23 @@ class GelfHandlerFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf(GelfHandler::class, $gelfHandler);
     }
 
+    public function testInstantiateGelfHandlerViaInvokeOptions()
+    {
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+
+        $gelfHandlerFactory = new GelfHandlerFactory();
+        $gelfHandler = $gelfHandlerFactory->__invoke(
+            $serviceLocator,
+            GelfHandler::class,
+            [
+                'host' => 'domain.com',
+                'port' => 123,
+            ]
+        );
+
+        $this->assertInstanceOf(GelfHandler::class, $gelfHandler);
+    }
+
     /**
      * @expectedException \MonologModule\Exception\RuntimeException
      */

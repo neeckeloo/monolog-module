@@ -19,13 +19,21 @@ class GelfHandlerFactory implements FactoryInterface
     /**
      * @param array $options
      */
-    public function __construct(array $options)
+    public function __construct(array $options = [])
     {
+        // Zend ServiceManager v2 allows factory creationOptions
         $this->options = $options;
     }
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
+        /**
+         * Avoid a BC break; Zend ServiceManager v2 will pass the options via the constructor, v3 to the __invoke()
+         */
+        if (null !== $options) {
+            $this->options = array_merge($this->options, $options);
+        }
+
         if (!isset($this->options['host'])) {
             throw new Exception\RuntimeException('Gelf handler needs a host value');
         }

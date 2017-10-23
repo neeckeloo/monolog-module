@@ -11,13 +11,17 @@ class HandlerPluginManagerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $config = $container->get('Config');
-
-        return new HandlerPluginManager(
+        
+        $handlerPluginManager = new HandlerPluginManager(
             $container,
             $config['monolog']['handler_plugin_manager']
         );
+        if (class_exists('Zend\Version\Version') && \Zend\Version\Version::compareVersion('3.0') >=1) {
+            $handlerPluginManager->setServiceLocator($container);
+        }
+        return $handlerPluginManager;
     }
-
+    
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         return $this->__invoke($serviceLocator, HandlerPluginManager::class);

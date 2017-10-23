@@ -32,6 +32,10 @@ class HandlerPluginManagerFactoryTest extends PHPUnit_Framework_TestCase
         $handlerPluginManager = $handlerPluginManagerFactory->createService($serviceLocator, 'foo');
         $this->assertInstanceOf(HandlerPluginManager::class, $handlerPluginManager);
 
+        // Assert that a ServiceLocatorInterface service has been injected.
+        // If it would be injected via the deprecated ServiceLocatorAwareInitializer, a E_USER_DEPRECATED would have been triggered.
+        $this->assertInstanceOf('Zend\ServiceManager\ServiceLocatorInterface', $handlerPluginManager->getServiceLocator());
+
         $service = $handlerPluginManager->get('foo');
         $this->assertInstanceOf(HandlerInterface::class, $service);
     }

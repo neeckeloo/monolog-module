@@ -8,25 +8,23 @@ use Monolog\Logger;
 use MonologModule\Formatter\FormatterPluginManager;
 use MonologModule\Handler\HandlerPluginManager;
 use MonologModule\Exception;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
+use Zend\ServiceManager\AbstractPluginManager;
 
 class LoggerFactory
 {
     /**
      * @var ContainerInterface
      */
-    protected $container;
+    private $container;
 
     public function setContainer(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
-    /**
-     * @param  array $config
-     * @return Logger
-     */
-    public function create(array $config)
+    public function create(array $config) : LoggerInterface
     {
         if (!isset($config['name'])) {
             throw new Exception\RuntimeException('You must provide a name for each logger');
@@ -48,11 +46,7 @@ class LoggerFactory
         return $logger;
     }
 
-    /**
-     * @param  mixed $handler
-     * @return HandlerInterface
-     */
-    private function createHandler($handler)
+    private function createHandler(array $handler) : HandlerInterface
     {
         if (!isset($handler['name'])) {
             throw new Exception\RuntimeException('You must provide a name for each handler');
@@ -65,7 +59,8 @@ class LoggerFactory
         }
 
         $handlerPluginManager = $this->getPluginManager(HandlerPluginManager::class);
-        $instance             = $this->createInstanceFromParams($handler, $handlerPluginManager);
+        /* @var $instance HandlerInterface */
+        $instance = $this->createInstanceFromParams($handler, $handlerPluginManager);
 
         if (isset($handler['formatter'])) {
             $formatter = $this->createFormatter($handler['formatter']);
@@ -75,11 +70,7 @@ class LoggerFactory
         return $instance;
     }
 
-    /**
-     * @param  mixed $formatter
-     * @return FormatterInterface
-     */
-    private function createFormatter($formatter)
+    private function createFormatter(array $formatter) : FormatterInterface
     {
         if (!isset($formatter['name'])) {
             throw new Exception\RuntimeException('You must provide a name for each formatter');
@@ -93,15 +84,18 @@ class LoggerFactory
 
         $formatterPluginManager = $this->getPluginManager(FormatterPluginManager::class);
 
-        return $this->createInstanceFromParams($formatter, $formatterPluginManager);
+        /* @var $instance FormatterInterface */
+        $instance = $this->createInstanceFromParams($formatter, $formatterPluginManager);
+
+        return $instance;
     }
 
     /**
      * @param  array $params
-     * @param  \Zend\ServiceManager\AbstractPluginManager|null $pluginManager
+     * @param  AbstractPluginManager|null $pluginManager
      * @return object
      */
-    private function createInstanceFromParams($params, $pluginManager = null)
+    private function createInstanceFromParams(array $params, AbstractPluginManager $pluginManager = null)
     {
         $options = [];
         if (isset($params['options']) && is_array($params['options'])) {
@@ -143,15 +137,13 @@ class LoggerFactory
     }
 
     /**
-     * @param  string $name
-     * @return \Zend\ServiceManager\AbstractPluginManager
+     * @param string $name
+     * @return AbstractPluginManager
      */
-    protected function getPluginManager($name)
+    private function getPluginManager(string $name)
     {
-        if (!$this->container || !$this->container->has($name)) {
-            return null;
+        if ($this->container && $this->container->has($name)) {
+            return $this->container->get($name);
         }
-
-        return $this->container->get($name);
     }
 }

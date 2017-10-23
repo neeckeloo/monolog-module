@@ -2,6 +2,7 @@
 namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -10,7 +11,7 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function canCreate(ContainerInterface $container, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName) : bool
     {
         $config       = $container->get('Config');
         $loggerConfig = $this->getLoggerConfig($config['monolog'], $requestedName);
@@ -21,7 +22,7 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName) : bool
     {
         return $this->canCreate($serviceLocator, $requestedName);
     }
@@ -29,7 +30,7 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : LoggerInterface
     {
         $config       = $container->get('Config');
         $loggerConfig = $this->getLoggerConfig($config['monolog'], $requestedName);
@@ -43,17 +44,12 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName)
+    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName) : LoggerInterface
     {
         return $this->__invoke($serviceLocator, $requestedName);
     }
 
-    /**
-     * @param  array $config
-     * @param  string $requestedName
-     * @return array
-     */
-    private function getLoggerConfig(array $config, $requestedName)
+    private function getLoggerConfig(array $config, string $requestedName) : array
     {
         if (!isset($config['loggers']) || !is_array($config['loggers'])) {
             return [];

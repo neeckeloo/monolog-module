@@ -8,7 +8,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class HandlerPluginManagerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : HandlerPluginManager
     {
         $config = $container->get('Config');
 
@@ -18,7 +18,7 @@ class HandlerPluginManagerFactory implements FactoryInterface
         );
     }
 
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceLocatorInterface $serviceLocator) : HandlerPluginManager
     {
         return $this->__invoke($serviceLocator, HandlerPluginManager::class);
     }

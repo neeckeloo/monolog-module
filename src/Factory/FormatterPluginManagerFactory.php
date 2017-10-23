@@ -8,7 +8,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class FormatterPluginManagerFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : FormatterPluginManager
     {
         $config = $container->get('Config');
 
@@ -18,7 +18,7 @@ class FormatterPluginManagerFactory implements FactoryInterface
         );
     }
 
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceLocatorInterface $serviceLocator) : FormatterPluginManager
     {
         return $this->__invoke($serviceLocator, FormatterPluginManager::class);
     }

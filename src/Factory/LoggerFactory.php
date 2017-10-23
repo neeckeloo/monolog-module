@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;

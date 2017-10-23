@@ -16,7 +16,7 @@
     "require": {
         "php": "^5.6 || ^7.0",
         "monolog/monolog": "~1.11",
-        "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
+        "zendframework/zend-servicemanager": "^2.7.6 || ^3.0.3"
     },
     "require-dev": {
         "graylog2/gelf-php": "~1.1",

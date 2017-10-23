@@ -6,7 +6,7 @@ return [
         ],
         'factories' => [
             'MonologModule\Formatter\FormatterPluginManager' => 'MonologModule\Factory\FormatterPluginManagerFactory',
-            'MonologModule\Handler\HandlerPluginManager'     => 'MonologModule\Factory\HandlerPluginManagerFactory',
+            'MonologModule\Handler\HandlerPluginManager' => 'MonologModule\Factory\HandlerPluginManagerFactory',
         ],
         'abstract_factories' => [
             'MonologModule\Factory\LoggerAbstractFactory',

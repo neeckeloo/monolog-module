@@ -5,10 +5,10 @@ use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use MonologModule\Factory\LoggerAbstractFactory;
 use MonologModule\Factory\LoggerFactory;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class LoggerAbstractFactoryTest extends PHPUnit_Framework_TestCase
+class LoggerAbstractFactoryTest extends TestCase
 {
     public function canCreateServiceWithNameProvider()
     {

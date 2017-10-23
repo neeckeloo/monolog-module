@@ -8,10 +8,10 @@ use Monolog\Processor\TagProcessor;
 use MonologModule\Factory\LoggerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use MonologModule\Handler\HandlerPluginManager;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class LoggerFactoryTest extends PHPUnit_Framework_TestCase
+class LoggerFactoryTest extends TestCase
 {
     protected $factory;
 

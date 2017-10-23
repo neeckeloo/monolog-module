@@ -4,10 +4,10 @@ namespace MonologModuleTest\Factory;
 use MonologModule\Factory\FormatterPluginManagerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use Monolog\Formatter\FormatterInterface;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class FormatterPluginManagerFactoryTest extends PHPUnit_Framework_TestCase
+class FormatterPluginManagerFactoryTest extends TestCase
 {
     public function testRetrieveFormatterInstance()
     {

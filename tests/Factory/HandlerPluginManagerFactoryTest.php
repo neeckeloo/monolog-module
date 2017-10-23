@@ -4,10 +4,10 @@ namespace MonologModuleTest\Factory;
 use MonologModule\Factory\HandlerPluginManagerFactory;
 use MonologModule\Handler\HandlerPluginManager;
 use Monolog\Handler\HandlerInterface;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class HandlerPluginManagerFactoryTest extends PHPUnit_Framework_TestCase
+class HandlerPluginManagerFactoryTest extends TestCase
 {
     public function testRetrieveHandlerInstance()
     {

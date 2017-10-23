@@ -3,10 +3,10 @@ namespace MonologModuleTest\Handler\Factory;
 
 use MonologModule\Handler\Factory\GelfHandlerFactory;
 use Monolog\Handler\GelfHandler;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class GelfHandlerFactoryTest extends PHPUnit_Framework_TestCase
+class GelfHandlerFactoryTest extends TestCase
 {
     public function testInstantiateGelfHandler()
     {

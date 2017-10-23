@@ -3,30 +3,36 @@ namespace MonologModuleTest\Formatter;
 
 use Monolog\Formatter\FormatterInterface;
 use MonologModule\Formatter\FormatterPluginManager;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class FormatterPluginManagerTest extends PHPUnit_Framework_TestCase
+class FormatterPluginManagerTest extends TestCase
 {
-    public function testValidatePlugin()
+    public function testRetrievePlugin()
     {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $handlerPluginManager = new FormatterPluginManager($serviceLocator);
+        $formatter = $this->createMock(FormatterInterface::class);
 
-        $handler = $this->createMock(FormatterInterface::class);
-        $handlerPluginManager->validatePlugin($handler);
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $formatterPluginManager = new FormatterPluginManager($serviceLocator, [
+            'services' => [
+                FormatterInterface::class => $formatter,
+            ],
+        ]);
+
+        $formatterReturned = $formatterPluginManager->get(FormatterInterface::class);
+        $this->assertSame($formatter, $formatterReturned);
     }
 
-    /**
-     * @expectedException \Zend\ServiceManager\Exception\InvalidServiceException
-     */
     public function testValidateInvalidPlugin()
     {
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $handlerPluginManager = new FormatterPluginManager($serviceLocator);
+        $formatterPluginManager = new FormatterPluginManager($serviceLocator);
 
-        $handler = new stdClass;
-        $handlerPluginManager->validatePlugin($handler);
+        $this->expectException(InvalidServiceException::class);
+
+        $formatter = new stdClass;
+        $formatterPluginManager->validatePlugin($formatter);
     }
 }

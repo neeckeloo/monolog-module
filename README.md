@@ -22,7 +22,7 @@ MonologModule must be installed through Composer. For Composer documentation, pl
 You can install the module from command line:
 
 ```sh
-$ composer require neeckeloo/monolog-module:~0.1
+$ composer require neeckeloo/monolog-module
 ```
 
 Enable the module by adding `MonologModule` key in your `application.config.php` file.

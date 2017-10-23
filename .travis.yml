@@ -3,10 +3,21 @@ language: php
 php:
   - 5.6
   - 7.0
+  - 7.1
+
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest"
+    - PREFER_LOWEST=""
+
+cache:
+  directories:
+    - $HOME/.composer/cache
 
 before_script:
-  - composer self-update
-  - composer install --dev --no-interaction
+  - travis_retry composer self-update
+  - travis_retry composer update --no-interaction --prefer-source --no-suggest --classmap-authoritative $PREFER_LOWEST
+  - composer info -i
 
 script:
   - mkdir -p build/logs

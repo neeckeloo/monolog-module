@@ -1,22 +1,31 @@
 <?php
+use Monolog\Handler\GelfHandler;
+use MonologModule\Factory\FormatterPluginManagerFactory;
+use MonologModule\Factory\HandlerPluginManagerFactory;
+use MonologModule\Factory\LoggerAbstractFactory;
+use MonologModule\Factory\LoggerFactory;
+use MonologModule\Formatter\FormatterPluginManager;
+use MonologModule\Handler\Factory\GelfHandlerFactory;
+use MonologModule\Handler\HandlerPluginManager;
+
 return [
     'service_manager' => [
         'invokables' => [
-            'MonologModule\Factory\LoggerFactory' => 'MonologModule\Factory\LoggerFactory',
+            LoggerFactory::class => LoggerFactory::class,
         ],
         'factories' => [
-            'MonologModule\Formatter\FormatterPluginManager' => 'MonologModule\Factory\FormatterPluginManagerFactory',
-            'MonologModule\Handler\HandlerPluginManager' => 'MonologModule\Factory\HandlerPluginManagerFactory',
+            FormatterPluginManager::class => FormatterPluginManagerFactory::class,
+            HandlerPluginManager::class => HandlerPluginManagerFactory::class,
         ],
         'abstract_factories' => [
-            'MonologModule\Factory\LoggerAbstractFactory',
+            LoggerAbstractFactory::class,
         ],
     ],
 
     'monolog' => [
         'handler_plugin_manager' => [
             'factories' => [
-                'Monolog\Handler\GelfHandler' => 'MonologModule\Handler\Factory\GelfHandlerFactory',
+                GelfHandler::class => GelfHandlerFactory::class,
             ],
         ],
         'formatter_plugin_manager' => [],

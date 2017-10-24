@@ -3,7 +3,7 @@ Monolog module for Zend Framework
 
 Module to integrate Monolog with Zend Framework projects.
 
-[![Build Status](https://img.shields.io/travis/neeckeloo/MonologModule.svg?style=flat-square)](http://travis-ci.org/neeckeloo/MonologModule)
+[![Build Status](https://img.shields.io/travis/neeckeloo/monolog-module.svg?style=flat-square)](http://travis-ci.org/neeckeloo/monolog-module)
 [![Latest Stable Version](http://img.shields.io/packagist/v/neeckeloo/monolog-module.svg?style=flat-square)](https://packagist.org/packages/neeckeloo/monolog-module)
 [![Total Downloads](http://img.shields.io/packagist/dt/neeckeloo/monolog-module.svg?style=flat-square)](https://packagist.org/packages/neeckeloo/monolog-module)
 [![Coverage Status](http://img.shields.io/coveralls/neeckeloo/MonologModule.svg?style=flat-square)](https://coveralls.io/r/neeckeloo/MonologModule)

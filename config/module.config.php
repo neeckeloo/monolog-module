@@ -7,15 +7,14 @@ use MonologModule\Factory\LoggerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use MonologModule\Handler\Factory\GelfHandlerFactory;
 use MonologModule\Handler\HandlerPluginManager;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'service_manager' => [
-        'invokables' => [
-            LoggerFactory::class => LoggerFactory::class,
-        ],
         'factories' => [
             FormatterPluginManager::class => FormatterPluginManagerFactory::class,
             HandlerPluginManager::class => HandlerPluginManagerFactory::class,
+            LoggerFactory::class => InvokableFactory::class,
         ],
         'abstract_factories' => [
             LoggerAbstractFactory::class,

@@ -32,5 +32,10 @@
         "psr-4": {
             "MonologModuleTest\\": "tests/"
         }
+    },
+    "extra": {
+        "zf": {
+            "module": "MonologModule\\Module"
+        }
     }
 }

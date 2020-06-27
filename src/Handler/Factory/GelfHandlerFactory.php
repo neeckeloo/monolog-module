@@ -9,8 +9,8 @@ use Interop\Container\ContainerInterface;
 use Monolog\Handler\GelfHandler;
 use Monolog\Logger;
 use MonologModule\Exception;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class GelfHandlerFactory implements FactoryInterface
 {
@@ -21,14 +21,14 @@ class GelfHandlerFactory implements FactoryInterface
 
     public function __construct(array $options = [])
     {
-        // Zend ServiceManager v2 allows factory creationOptions
+        // Laminas ServiceManager v2 allows factory creationOptions
         $this->options = $options;
     }
 
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : GelfHandler
     {
         /**
-         * Avoid a BC break; Zend ServiceManager v2 will pass the options via the constructor, v3 to the __invoke()
+         * Avoid a BC break; Laminas ServiceManager v2 will pass the options via the constructor, v3 to the __invoke()
          */
         if (null !== $options) {
             $this->options = array_merge($this->options, $options);

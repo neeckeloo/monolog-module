@@ -5,8 +5,8 @@ use Monolog\Formatter\FormatterInterface;
 use MonologModule\Formatter\FormatterPluginManager;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class FormatterPluginManagerTest extends TestCase
 {

@@ -1,7 +1,7 @@
-Monolog module for Zend Framework
+Monolog module for Laminas
 =================================
 
-Module to integrate Monolog with Zend Framework projects.
+Module to integrate Monolog with Laminas projects.
 
 [![Build Status](https://img.shields.io/travis/neeckeloo/monolog-module.svg?style=flat-square)](http://travis-ci.org/neeckeloo/monolog-module)
 [![Latest Stable Version](http://img.shields.io/packagist/v/neeckeloo/monolog-module.svg?style=flat-square)](https://packagist.org/packages/neeckeloo/monolog-module)
@@ -12,7 +12,7 @@ Module to integrate Monolog with Zend Framework projects.
 
 * PHP 7.1+
 * [monolog/monolog ^1.11 || ^2.0](http://www.github.com/Seldaek/monolog)
-* [zendframework/zend-servicemanager ^2.7.6 || ^3.0.3](https://github.com/zendframework/zend-servicemanager)
+* [laminas/laminas-servicemanager ^2.7.6 || ^3.0.3](https://github.com/laminas/laminas-servicemanager)
 
 ## Installation
 

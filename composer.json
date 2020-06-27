@@ -1,9 +1,9 @@
 {
     "name": "neeckeloo/monolog-module",
-    "description": "Monolog integration into Zend Framework",
+    "description": "Monolog integration into Laminas",
     "type": "library",
     "keywords": [
-        "zf2", "monolog", "logger", "log"
+        "laminas", "monolog", "logger", "log"
     ],
     "license": "MIT",
     "homepage": "https://github.com/neeckeloo/MonologModule",
@@ -16,7 +16,7 @@
     "require": {
         "php": "^7.1",
         "monolog/monolog": "^1.11 || ^2.0",
-        "zendframework/zend-servicemanager": "^2.7.6 || ^3.0.3"
+        "laminas/laminas-servicemanager": "^2.7.6 || ^3.0.3"
     },
     "require-dev": {
         "graylog2/gelf-php": "~1.1",

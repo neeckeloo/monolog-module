@@ -22,7 +22,7 @@ class LoggerFactory
      */
     private $container;
 
-    public function setContainer(ContainerInterface $container)
+    public function setContainer(ContainerInterface $container) : void
     {
         $this->container = $container;
     }

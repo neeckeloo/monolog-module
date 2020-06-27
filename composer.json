@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "monolog/monolog": "^1.11 || ^2.0",
         "zendframework/zend-servicemanager": "^2.7.6 || ^3.0.3"
     },

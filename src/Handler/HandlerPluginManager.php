@@ -17,7 +17,7 @@ class HandlerPluginManager extends AbstractPluginManager
      * @param  mixed $instance
      * @throws InvalidServiceException
      */
-    public function validate($instance)
+    public function validate($instance): void
     {
         if (! $instance instanceof $this->instanceOf) {
             throw new InvalidServiceException(sprintf(
@@ -33,7 +33,7 @@ class HandlerPluginManager extends AbstractPluginManager
      * @param  mixed $instance
      * @throws Exception\InvalidArgumentException
      */
-    public function validatePlugin($instance)
+    public function validatePlugin($instance): void
     {
         $this->validate($instance);
     }

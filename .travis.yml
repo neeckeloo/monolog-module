@@ -7,11 +7,9 @@ env:
 matrix:
   fast_finish: true
   include:
-    - php: 7.0
-      dist: xenial
-      env: deps=low
     - php: 7.1
       dist: bionic
+      env: deps=low
     - php: 7.2
       dist: bionic
     - php: 7.3

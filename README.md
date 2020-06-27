@@ -10,7 +10,7 @@ Module to integrate Monolog with Zend Framework projects.
 
 ## Requirements
 
-* PHP 7.0+
+* PHP 7.1+
 * [monolog/monolog ^1.11 || ^2.0](http://www.github.com/Seldaek/monolog)
 * [zendframework/zend-servicemanager ^2.7.6 || ^3.0.3](https://github.com/zendframework/zend-servicemanager)
 

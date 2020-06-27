@@ -2,7 +2,7 @@
 namespace MonologModuleTest\Factory;
 
 use Monolog\Formatter\JsonFormatter;
-use Monolog\Handler\NullHandler;
+use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Monolog\Processor\TagProcessor;
 use MonologModule\Factory\LoggerFactory;
@@ -52,7 +52,7 @@ class LoggerFactoryTest extends TestCase
             'name' => 'foo',
             'handlers' => [
                 'default' => [
-                    'name' => NullHandler::class,
+                    'name' => TestHandler::class,
                 ],
             ],
         ];
@@ -60,7 +60,7 @@ class LoggerFactoryTest extends TestCase
         $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
-        $this->assertInstanceOf(NullHandler::class, $handler);
+        $this->assertInstanceOf(TestHandler::class, $handler);
     }
 
     public function testCreateLoggerWithHandlerIncludingOptions()
@@ -83,7 +83,7 @@ class LoggerFactoryTest extends TestCase
             'name' => 'foo',
             'handlers' => [
                 'default' => [
-                    'name' => NullHandler::class,
+                    'name' => TestHandler::class,
                     'options' => [
                         'level' => $level,
                     ],
@@ -94,7 +94,7 @@ class LoggerFactoryTest extends TestCase
         $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
-        $this->assertInstanceOf(NullHandler::class, $handler);
+        $this->assertInstanceOf(TestHandler::class, $handler);
 
         $this->assertEquals($level, $handler->getLevel());
     }
@@ -162,7 +162,7 @@ class LoggerFactoryTest extends TestCase
             'name' => 'foo',
             'handlers' => [
                 'default' => [
-                    'name'      => NullHandler::class,
+                    'name'      => TestHandler::class,
                     'formatter' => [
                         'name' => JsonFormatter::class,
                     ],
@@ -173,7 +173,7 @@ class LoggerFactoryTest extends TestCase
         $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
-        $this->assertInstanceOf(NullHandler::class, $handler);
+        $this->assertInstanceOf(TestHandler::class, $handler);
 
         $formatter = $handler->getFormatter();
         $this->assertInstanceOf(JsonFormatter::class, $formatter);
@@ -211,7 +211,7 @@ class LoggerFactoryTest extends TestCase
             'name' => 'foo',
             'handlers' => [
                 'default' => [
-                    'name'      => NullHandler::class,
+                    'name'      => TestHandler::class,
                     'formatter' => [
                         'name' => JsonFormatter::class,
                         'options' => [
@@ -225,7 +225,7 @@ class LoggerFactoryTest extends TestCase
         $this->assertInstanceOf('Monolog\Logger', $logger);
 
         $handler = $logger->popHandler();
-        $this->assertInstanceOf(NullHandler::class, $handler);
+        $this->assertInstanceOf(TestHandler::class, $handler);
 
         $formatter = $handler->getFormatter();
         $this->assertInstanceOf(JsonFormatter::class, $formatter);

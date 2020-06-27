@@ -1,21 +1,35 @@
 language: php
 
-php:
-  - 7.0
-  - 7.1
-
 env:
-  matrix:
-    - PREFER_LOWEST="--prefer-lowest"
-    - PREFER_LOWEST=""
+  global:
+    - COMPOSER_ARGS=
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.0
+      dist: xenial
+      env: deps=low
+    - php: 7.1
+      dist: bionic
+    - php: 7.2
+      dist: bionic
+    - php: 7.3
+      dist: bionic
+    - php: 7.4
+      dist: bionic
+    - php: nightly
+      dist: bionic
+      env: COMPOSER_ARGS=--ignore-platform-reqs
 
 cache:
   directories:
     - $HOME/.composer/cache
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer update --no-interaction --prefer-source --no-suggest --classmap-authoritative $PREFER_LOWEST
+  - composer self-update
+  - if [ "$deps" == "low" ]; then composer update -n --prefer-dist --prefer-lowest --prefer-stable $COMPOSER_ARGS; fi
+  - if [ "$deps" != "low" ]; then composer update -n --prefer-dist $COMPOSER_ARGS; fi
   - composer info -i
 
 script:

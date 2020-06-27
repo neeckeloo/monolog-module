@@ -21,7 +21,7 @@
     "require-dev": {
         "graylog2/gelf-php": "~1.1",
         "phpunit/phpunit": "^6.0.12",
-        "satooshi/php-coveralls": "dev-master"
+        "satooshi/php-coveralls": "^2.2"
     },
     "autoload": {
         "psr-4": {

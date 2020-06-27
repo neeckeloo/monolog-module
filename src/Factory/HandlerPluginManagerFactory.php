@@ -6,8 +6,8 @@ namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
 use MonologModule\Handler\HandlerPluginManager;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class HandlerPluginManagerFactory implements FactoryInterface
 {

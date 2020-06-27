@@ -6,8 +6,8 @@ namespace MonologModule\Handler;
 
 use MonologModule\Exception;
 use Monolog\Handler\HandlerInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 
 class HandlerPluginManager extends AbstractPluginManager
 {

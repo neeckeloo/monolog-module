@@ -13,7 +13,7 @@ use MonologModule\Handler\HandlerPluginManager;
 use MonologModule\Exception;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
-use Zend\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\AbstractPluginManager;
 
 class LoggerFactory
 {

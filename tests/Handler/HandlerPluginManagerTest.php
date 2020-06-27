@@ -5,8 +5,8 @@ use Monolog\Handler\HandlerInterface;
 use MonologModule\Handler\HandlerPluginManager;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class HandlerPluginManagerTest extends TestCase
 {

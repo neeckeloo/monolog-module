@@ -6,8 +6,8 @@ namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Zend\ServiceManager\AbstractFactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\AbstractFactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class LoggerAbstractFactory implements AbstractFactoryInterface
 {

@@ -7,7 +7,7 @@ use MonologModule\Factory\LoggerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use MonologModule\Handler\Factory\GelfHandlerFactory;
 use MonologModule\Handler\HandlerPluginManager;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'service_manager' => [

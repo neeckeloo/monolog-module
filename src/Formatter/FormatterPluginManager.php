@@ -6,8 +6,8 @@ namespace MonologModule\Formatter;
 
 use MonologModule\Exception;
 use Monolog\Formatter\FormatterInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 
 class FormatterPluginManager extends AbstractPluginManager
 {

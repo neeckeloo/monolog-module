@@ -6,7 +6,7 @@ use Monolog\Logger;
 use MonologModule\Factory\LoggerAbstractFactory;
 use MonologModule\Factory\LoggerFactory;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class LoggerAbstractFactoryTest extends TestCase
 {

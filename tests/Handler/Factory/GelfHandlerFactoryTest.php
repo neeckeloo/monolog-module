@@ -4,7 +4,7 @@ namespace MonologModuleTest\Handler\Factory;
 use MonologModule\Handler\Factory\GelfHandlerFactory;
 use Monolog\Handler\GelfHandler;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class GelfHandlerFactoryTest extends TestCase
 {

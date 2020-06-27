@@ -9,7 +9,7 @@ use MonologModule\Factory\LoggerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use MonologModule\Handler\HandlerPluginManager;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class LoggerFactoryTest extends TestCase
 {

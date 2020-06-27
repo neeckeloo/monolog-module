@@ -1,6 +1,7 @@
 <?php
 namespace MonologModuleTest\Handler\Factory;
 
+use MonologModule\Exception\RuntimeException;
 use MonologModule\Handler\Factory\GelfHandlerFactory;
 use Monolog\Handler\GelfHandler;
 use PHPUnit\Framework\TestCase;
@@ -38,22 +39,20 @@ class GelfHandlerFactoryTest extends TestCase
         $this->assertInstanceOf(GelfHandler::class, $gelfHandler);
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testInstantiateGelfHandlerWithoutHost()
     {
+        $this->expectException(RuntimeException::class);
+
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
 
         $gelfHandlerFactory = new GelfHandlerFactory(['port' => 123]);
         $gelfHandlerFactory->createService($serviceLocator);
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testInstantiateGelfHandlerWithoutPort()
     {
+        $this->expectException(RuntimeException::class);
+
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
 
         $gelfHandlerFactory = new GelfHandlerFactory(['host' => 'domain.com']);

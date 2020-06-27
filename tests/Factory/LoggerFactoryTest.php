@@ -5,6 +5,7 @@ use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Monolog\Processor\TagProcessor;
+use MonologModule\Exception\RuntimeException;
 use MonologModule\Factory\LoggerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use MonologModule\Handler\HandlerPluginManager;
@@ -24,11 +25,10 @@ class LoggerFactoryTest extends TestCase
         $this->assertInstanceOf('Monolog\Logger', $logger);
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testCreateLoggerWithoutName()
     {
+        $this->expectException(RuntimeException::class);
+
         $factory = new LoggerFactory();
         $factory->create([]);
     }
@@ -99,11 +99,10 @@ class LoggerFactoryTest extends TestCase
         $this->assertEquals($level, $handler->getLevel());
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testCreateLoggerWithHandlerWithoutName()
     {
+        $this->expectException(RuntimeException::class);
+
         $factory = new LoggerFactory();
         $config = [
             'name' => 'foo',
@@ -114,11 +113,10 @@ class LoggerFactoryTest extends TestCase
         $factory->create($config);
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testCreateLoggerWithHandlerWithInvalidName()
     {
+        $this->expectException(RuntimeException::class);
+
         $factory = new LoggerFactory();
         $config = [
             'name' => 'foo',
@@ -233,11 +231,10 @@ class LoggerFactoryTest extends TestCase
         $this->assertEquals($batchMode, $formatter->getBatchMode());
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testCreateLoggerWithHandlerAndFormatterWithoutName()
     {
+        $this->expectException(RuntimeException::class);
+
         $factory = new LoggerFactory();
 
         $config = [
@@ -255,11 +252,10 @@ class LoggerFactoryTest extends TestCase
         $factory->create($config);
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testCreateLoggerWithHandlerAndFormatterWithInvalidName()
     {
+        $this->expectException(RuntimeException::class);
+
         $factory = new LoggerFactory();
 
         $config = [
@@ -293,11 +289,10 @@ class LoggerFactoryTest extends TestCase
         $this->assertInstanceOf(TagProcessor::class, $processor);
     }
 
-    /**
-     * @expectedException \MonologModule\Exception\RuntimeException
-     */
     public function testCreateLoggerWithInvalidProcessor()
     {
+        $this->expectException(RuntimeException::class);
+
         $factory = new LoggerFactory();
 
         $config = [

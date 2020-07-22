@@ -303,4 +303,43 @@ class LoggerFactoryTest extends TestCase
         ];
         $factory->create($config);
     }
+    
+    public function testCreateLoggerWithHandlerAndProcessor()
+    {
+        $factory = new LoggerFactory();
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->at(0))
+            ->method('has')
+            ->with(HandlerPluginManager::class)
+            ->will($this->returnValue(true));
+        $serviceLocator
+            ->expects($this->at(1))
+            ->method('get')
+            ->with(HandlerPluginManager::class)
+            ->will($this->returnValue(null));
+            
+        $factory->setContainer($serviceLocator);
+
+        $config = [
+            'name' => 'foo',
+            'handlers' => [
+                'default' => [
+                    'name'      => TestHandler::class,
+                    'processors' => [
+                        TagProcessor::class,
+                    ],
+                ],
+            ],
+        ];
+        $logger = $factory->create($config);
+        $this->assertInstanceOf('Monolog\Logger', $logger);
+
+        $handler = $logger->popHandler();
+        $this->assertInstanceOf(TestHandler::class, $handler);
+
+        $processor = $handler->popProcessor();
+        $this->assertInstanceOf(TagProcessor::class, $processor);
+    }
 }

@@ -37,7 +37,13 @@ class LoggerFactory
 
         if (isset($config['handlers']) && is_array($config['handlers'])) {
             foreach ($config['handlers'] as $handler) {
-                $logger->pushHandler($this->createHandler($handler));
+                $newHandler = $this->createHandler($handler);
+                if (isset($handler['processors']) && is_array($handler['processors'])) {
+                    foreach ($handler['processors'] as $processor) {
+                        $newHandler->pushProcessor($this->createProcessor($processor));
+                    }
+                }
+                $logger->pushHandler($newHandler);
             }
         }
         if (isset($config['processors']) && is_array($config['processors'])) {

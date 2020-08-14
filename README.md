@@ -146,8 +146,8 @@ $ vendor/bin/phpunit
 ## Credits
 
 - [Nicolas Eeckeloo](https://github.com/neeckeloo)
-- [All Contributors](https://github.com/RiskioFr/idempotency-module/contributors)
+- [All Contributors](https://github.com/RiskioFr/monolog-module/contributors)
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/RiskioFr/tactician-module/blob/master/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/RiskioFr/monolog-module/blob/master/LICENSE) for more information.

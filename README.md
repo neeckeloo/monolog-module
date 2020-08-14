@@ -101,6 +101,33 @@ return [
 ];
 ```
 
+You can also add processors to a specific handler.
+
+```php
+return [
+    'monolog' => [
+        'loggers' => [
+            'Log\App' => [
+                'name' => 'default',
+                'handlers' => [
+                    'default' => [
+                        'name' => StreamHandler::class,
+                        'options' => [
+                            'path'   => 'data/log/application.log',
+                            'level'  => Logger::DEBUG,
+                        ],
+                        'processors' => [
+                            UidProcessor::class,
+                            WebProcessor::class,
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+```
+
 ### Retrieving a logger
 
 Once the configuration is complete, you can retrieve an instance of the logger as below:

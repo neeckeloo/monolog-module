@@ -1,6 +1,7 @@
 <?php
 namespace MonologModuleTest\Factory;
 
+use Laminas\ServiceManager\ServiceManager;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -10,7 +11,6 @@ use MonologModule\Factory\LoggerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use MonologModule\Handler\HandlerPluginManager;
 use PHPUnit\Framework\TestCase;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class LoggerFactoryTest extends TestCase
 {
@@ -36,17 +36,7 @@ class LoggerFactoryTest extends TestCase
     public function testCreateLoggerWithHandler()
     {
         $factory = new LoggerFactory();
-
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->method('has')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(true));
-        $serviceLocator
-            ->method('get')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(null));
-        $factory->setContainer($serviceLocator);
+        $factory->setContainer(new ServiceManager());
 
         $config = [
             'name' => 'foo',
@@ -66,17 +56,7 @@ class LoggerFactoryTest extends TestCase
     public function testCreateLoggerWithHandlerIncludingOptions()
     {
         $factory = new LoggerFactory();
-
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->method('has')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(true));
-        $serviceLocator
-            ->method('get')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(null));
-        $factory->setContainer($serviceLocator);
+        $factory->setContainer(new ServiceManager());
 
         $level = Logger::CRITICAL;
         $config = [
@@ -133,28 +113,15 @@ class LoggerFactoryTest extends TestCase
     {
         $factory = new LoggerFactory();
 
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->at(0))
-            ->method('has')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(true));
-        $serviceLocator
-            ->expects($this->at(1))
-            ->method('get')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(null));
-        $serviceLocator
-            ->expects($this->at(2))
-            ->method('has')
-            ->with(FormatterPluginManager::class)
-            ->will($this->returnValue(true));
-        $serviceLocator
-            ->expects($this->at(3))
-            ->method('get')
-            ->with(FormatterPluginManager::class)
-            ->will($this->returnValue(null));
-        $factory->setContainer($serviceLocator);
+        $serviceManager = new ServiceManager();
+
+        $handlerPluginManager = new HandlerPluginManager($serviceManager);
+        $formatterPluginManager = new FormatterPluginManager($serviceManager);
+
+        $serviceManager->setService(HandlerPluginManager::class, $handlerPluginManager);
+        $serviceManager->setService(FormatterPluginManager::class, $formatterPluginManager);
+
+        $factory->setContainer($serviceManager);
 
         $config = [
             'name' => 'foo',
@@ -180,29 +147,7 @@ class LoggerFactoryTest extends TestCase
     public function testCreateLoggerWithHandlerAndFormatterIncludingOptions()
     {
         $factory = new LoggerFactory();
-
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->at(0))
-            ->method('has')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(true));
-        $serviceLocator
-            ->expects($this->at(1))
-            ->method('get')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(null));
-        $serviceLocator
-            ->expects($this->at(2))
-            ->method('has')
-            ->with(FormatterPluginManager::class)
-            ->will($this->returnValue(true));
-        $serviceLocator
-            ->expects($this->at(3))
-            ->method('get')
-            ->with(FormatterPluginManager::class)
-            ->will($this->returnValue(null));
-        $factory->setContainer($serviceLocator);
+        $factory->setContainer(new ServiceManager());
 
         $batchMode = JsonFormatter::BATCH_MODE_NEWLINES;
         $config = [
@@ -303,24 +248,11 @@ class LoggerFactoryTest extends TestCase
         ];
         $factory->create($config);
     }
-    
+
     public function testCreateLoggerWithHandlerAndProcessor()
     {
         $factory = new LoggerFactory();
-
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->at(0))
-            ->method('has')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(true));
-        $serviceLocator
-            ->expects($this->at(1))
-            ->method('get')
-            ->with(HandlerPluginManager::class)
-            ->will($this->returnValue(null));
-            
-        $factory->setContainer($serviceLocator);
+        $factory->setContainer(new ServiceManager());
 
         $config = [
             'name' => 'foo',

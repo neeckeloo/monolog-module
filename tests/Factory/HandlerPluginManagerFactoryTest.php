@@ -29,7 +29,7 @@ class HandlerPluginManagerFactoryTest extends TestCase
 
         $handlerPluginManagerFactory = new HandlerPluginManagerFactory();
 
-        $handlerPluginManager = $handlerPluginManagerFactory->createService($serviceLocator, 'foo');
+        $handlerPluginManager = ($handlerPluginManagerFactory)($serviceLocator, 'foo');
         $this->assertInstanceOf(HandlerPluginManager::class, $handlerPluginManager);
 
         $service = $handlerPluginManager->get('foo');

@@ -6,8 +6,7 @@ namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
 use MonologModule\Formatter\FormatterPluginManager;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class FormatterPluginManagerFactory implements FactoryInterface
 {
@@ -19,10 +18,5 @@ class FormatterPluginManagerFactory implements FactoryInterface
             $container,
             $config['monolog']['formatter_plugin_manager']
         );
-    }
-
-    public function createService(ServiceLocatorInterface $serviceLocator) : FormatterPluginManager
-    {
-        return $this->__invoke($serviceLocator, FormatterPluginManager::class);
     }
 }

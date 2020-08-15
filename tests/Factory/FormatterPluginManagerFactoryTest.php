@@ -29,7 +29,7 @@ class FormatterPluginManagerFactoryTest extends TestCase
 
         $formatterPluginManagerFactory = new FormatterPluginManagerFactory();
 
-        $formatterPluginManager = $formatterPluginManagerFactory->createService($serviceLocator, 'foo');
+        $formatterPluginManager = ($formatterPluginManagerFactory)($serviceLocator, 'foo');
         $this->assertInstanceOf(FormatterPluginManager::class, $formatterPluginManager);
 
         $service = $formatterPluginManager->get('foo');

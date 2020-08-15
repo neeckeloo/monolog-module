@@ -11,7 +11,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class LoggerAbstractFactoryTest extends TestCase
 {
-    public function canCreateServiceWithNameProvider()
+    public function canCreateServiceProvider()
     {
         return [
             ['foo', true],
@@ -21,9 +21,9 @@ class LoggerAbstractFactoryTest extends TestCase
     }
 
     /**
-     * @dataProvider canCreateServiceWithNameProvider
+     * @dataProvider canCreateServiceProvider
      */
-    public function testCanCreateServiceWithName($name, $expected)
+    public function testCanCreateService($name, $expected)
     {
         $config = [
             'monolog' => [
@@ -43,12 +43,12 @@ class LoggerAbstractFactoryTest extends TestCase
             ->will($this->returnValue($config));
 
         $abstractFactory = new LoggerAbstractFactory();
-        $output = $abstractFactory->canCreateServiceWithName($serviceLocator, null, $name);
+        $output = $abstractFactory->canCreate($serviceLocator, $name);
 
         $this->assertSame($expected, $output);
     }
 
-    public function testCreateServiceWithName()
+    public function testCreateService()
     {
         $logger = new Logger('foo');
 
@@ -63,7 +63,7 @@ class LoggerAbstractFactoryTest extends TestCase
         $serviceManager->setService(LoggerFactory::class, $loggerFactory);
 
         $abstractFactory = new LoggerAbstractFactory();
-        $instance = $abstractFactory->createServiceWithName($serviceManager, null, 'foo');
+        $instance = ($abstractFactory)($serviceManager, 'foo');
 
         $this->assertInstanceOf('Monolog\Logger', $instance);
     }

@@ -6,8 +6,7 @@ namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
 use MonologModule\Handler\HandlerPluginManager;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class HandlerPluginManagerFactory implements FactoryInterface
 {
@@ -19,10 +18,5 @@ class HandlerPluginManagerFactory implements FactoryInterface
             $container,
             $config['monolog']['handler_plugin_manager']
         );
-    }
-
-    public function createService(ServiceLocatorInterface $serviceLocator) : HandlerPluginManager
-    {
-        return $this->__invoke($serviceLocator, HandlerPluginManager::class);
     }
 }

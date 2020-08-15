@@ -1,6 +1,7 @@
 <?php
 namespace MonologModuleTest\Factory;
 
+use Laminas\ServiceManager\ServiceManager;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use MonologModule\Factory\LoggerAbstractFactory;
@@ -43,6 +44,7 @@ class LoggerAbstractFactoryTest extends TestCase
 
         $abstractFactory = new LoggerAbstractFactory();
         $output = $abstractFactory->canCreateServiceWithName($serviceLocator, null, $name);
+
         $this->assertSame($expected, $output);
     }
 
@@ -55,22 +57,14 @@ class LoggerAbstractFactoryTest extends TestCase
             ->method('create')
             ->will($this->returnValue($logger));
 
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceManager = new ServiceManager();
 
-        $serviceLocator
-            ->expects($this->at(0))
-            ->method('get')
-            ->with('Config')
-            ->will($this->returnValue(['monolog' => []]));
-
-        $serviceLocator
-            ->expects($this->at(1))
-            ->method('get')
-            ->with(LoggerFactory::class)
-            ->will($this->returnValue($loggerFactory));
+        $serviceManager->setService('Config', ['monolog' => []]);
+        $serviceManager->setService(LoggerFactory::class, $loggerFactory);
 
         $abstractFactory = new LoggerAbstractFactory();
-        $instance = $abstractFactory->createServiceWithName($serviceLocator, null, 'foo');
+        $instance = $abstractFactory->createServiceWithName($serviceManager, null, 'foo');
+
         $this->assertInstanceOf('Monolog\Logger', $instance);
     }
 }

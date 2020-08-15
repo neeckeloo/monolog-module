@@ -6,8 +6,7 @@ namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Laminas\ServiceManager\AbstractFactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
 
 class LoggerAbstractFactory implements AbstractFactoryInterface
 {
@@ -25,14 +24,6 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function canCreateServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName) : bool
-    {
-        return $this->canCreate($serviceLocator, $requestedName);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : LoggerInterface
     {
         $config       = $container->get('Config');
@@ -42,14 +33,6 @@ class LoggerAbstractFactory implements AbstractFactoryInterface
         $factory->setContainer($container);
 
         return $factory->create($loggerConfig);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createServiceWithName(ServiceLocatorInterface $serviceLocator, $name, $requestedName) : LoggerInterface
-    {
-        return $this->__invoke($serviceLocator, $requestedName);
     }
 
     private function getLoggerConfig(array $config, string $requestedName) : array

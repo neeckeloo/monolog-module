@@ -9,59 +9,35 @@ use Interop\Container\ContainerInterface;
 use Monolog\Handler\GelfHandler;
 use Monolog\Logger;
 use MonologModule\Exception;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class GelfHandlerFactory implements FactoryInterface
 {
-    /**
-     * @var array
-     */
-    private $options;
-
-    public function __construct(array $options = [])
-    {
-        // Laminas ServiceManager v2 allows factory creationOptions
-        $this->options = $options;
-    }
-
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null) : GelfHandler
     {
-        /**
-         * Avoid a BC break; Laminas ServiceManager v2 will pass the options via the constructor, v3 to the __invoke()
-         */
-        if (null !== $options) {
-            $this->options = array_merge($this->options, $options);
-        }
-
-        if (!isset($this->options['host'])) {
+        if (!isset($options['host'])) {
             throw new Exception\RuntimeException('Gelf handler needs a host value');
         }
-        if (!isset($this->options['port'])) {
+        if (!isset($options['port'])) {
             throw new Exception\RuntimeException('Gelf handler needs a port value');
         }
 
         $publisher = new Gelf\Publisher(
-            new Gelf\Transport\UdpTransport($this->options['host'], $this->options['port'])
+            new Gelf\Transport\UdpTransport($options['host'], $options['port'])
         );
 
-        if (isset($this->options['level'])) {
-            $level = $this->options['level'];
+        if (isset($options['level'])) {
+            $level = $options['level'];
         } else {
             $level = Logger::DEBUG;
         }
 
-        if (isset($this->options['bubble'])) {
-            $bubble = $this->options['bubble'];
+        if (isset($options['bubble'])) {
+            $bubble = $options['bubble'];
         } else {
             $bubble = true;
         }
 
         return new GelfHandler($publisher, $level, $bubble);
-    }
-
-    public function createService(ServiceLocatorInterface $serviceLocator) : GelfHandler
-    {
-        return $this->__invoke($serviceLocator, GelfHandler::class);
     }
 }

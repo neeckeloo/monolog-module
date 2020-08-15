@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
-use MonologModule\Handler\HandlerPluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use MonologModule\Handler\HandlerPluginManager;
 
 class HandlerPluginManagerFactory implements FactoryInterface
 {

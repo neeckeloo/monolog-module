@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Logger;
@@ -13,7 +14,6 @@ use MonologModule\Handler\HandlerPluginManager;
 use MonologModule\Exception;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
-use Laminas\ServiceManager\AbstractPluginManager;
 
 class LoggerFactory
 {

@@ -1,13 +1,13 @@
 <?php
 namespace MonologModuleTest\Factory;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Monolog\Handler\NullHandler;
 use Monolog\Logger;
 use MonologModule\Factory\LoggerAbstractFactory;
 use MonologModule\Factory\LoggerFactory;
 use PHPUnit\Framework\TestCase;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class LoggerAbstractFactoryTest extends TestCase
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
-use MonologModule\Formatter\FormatterPluginManager;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use MonologModule\Formatter\FormatterPluginManager;
 
 class FormatterPluginManagerFactory implements FactoryInterface
 {

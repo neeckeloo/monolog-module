@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MonologModule\Formatter;
 
-use MonologModule\Exception;
-use Monolog\Formatter\FormatterInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
+use MonologModule\Exception;
+use Monolog\Formatter\FormatterInterface;
 
 class FormatterPluginManager extends AbstractPluginManager
 {

@@ -1,11 +1,11 @@
 <?php
 namespace MonologModuleTest\Factory;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use MonologModule\Factory\HandlerPluginManagerFactory;
 use MonologModule\Handler\HandlerPluginManager;
 use Monolog\Handler\HandlerInterface;
 use PHPUnit\Framework\TestCase;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class HandlerPluginManagerFactoryTest extends TestCase
 {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace MonologModule\Factory;
 
 use Interop\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
 use Laminas\ServiceManager\Factory\AbstractFactoryInterface;
+use Psr\Log\LoggerInterface;
 
 class LoggerAbstractFactory implements AbstractFactoryInterface
 {

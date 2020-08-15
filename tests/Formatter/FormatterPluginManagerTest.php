@@ -1,12 +1,12 @@
 <?php
 namespace MonologModuleTest\Formatter;
 
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Monolog\Formatter\FormatterInterface;
 use MonologModule\Formatter\FormatterPluginManager;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class FormatterPluginManagerTest extends TestCase
 {

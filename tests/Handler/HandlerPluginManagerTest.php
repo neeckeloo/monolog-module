@@ -1,12 +1,12 @@
 <?php
 namespace MonologModuleTest\Handler;
 
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Monolog\Handler\HandlerInterface;
 use MonologModule\Handler\HandlerPluginManager;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Laminas\ServiceManager\Exception\InvalidServiceException;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class HandlerPluginManagerTest extends TestCase
 {

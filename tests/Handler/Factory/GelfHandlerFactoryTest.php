@@ -1,11 +1,11 @@
 <?php
 namespace MonologModuleTest\Handler\Factory;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use MonologModule\Exception\RuntimeException;
 use MonologModule\Handler\Factory\GelfHandlerFactory;
 use Monolog\Handler\GelfHandler;
 use PHPUnit\Framework\TestCase;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class GelfHandlerFactoryTest extends TestCase
 {

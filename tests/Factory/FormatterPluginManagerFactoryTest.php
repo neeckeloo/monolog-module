@@ -1,11 +1,11 @@
 <?php
 namespace MonologModuleTest\Factory;
 
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use MonologModule\Factory\FormatterPluginManagerFactory;
 use MonologModule\Formatter\FormatterPluginManager;
 use Monolog\Formatter\FormatterInterface;
 use PHPUnit\Framework\TestCase;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class FormatterPluginManagerFactoryTest extends TestCase
 {

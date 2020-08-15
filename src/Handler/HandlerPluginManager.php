@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace MonologModule\Handler;
 
-use MonologModule\Exception;
-use Monolog\Handler\HandlerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
+use MonologModule\Exception;
+use Monolog\Handler\HandlerInterface;
 
 class HandlerPluginManager extends AbstractPluginManager
 {

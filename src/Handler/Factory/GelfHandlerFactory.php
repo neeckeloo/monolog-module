@@ -6,10 +6,10 @@ namespace MonologModule\Handler\Factory;
 
 use Gelf;
 use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Monolog\Handler\GelfHandler;
 use Monolog\Logger;
 use MonologModule\Exception;
-use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class GelfHandlerFactory implements FactoryInterface
 {

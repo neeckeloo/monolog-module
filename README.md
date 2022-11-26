@@ -11,7 +11,7 @@ Module to integrate Monolog with Laminas projects.
 ## Requirements
 
 * PHP ^8.0
-* [monolog/monolog ^2.0](http://www.github.com/Seldaek/monolog)
+* [monolog/monolog ^2.0 || ^3.0](http://www.github.com/Seldaek/monolog)
 * [laminas/laminas-servicemanager ^3.3.2](https://github.com/laminas/laminas-servicemanager)
 
 ## Installation

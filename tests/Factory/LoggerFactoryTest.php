@@ -4,6 +4,7 @@ namespace MonologModuleTest\Factory;
 use Laminas\ServiceManager\ServiceManager;
 use Monolog\Formatter\JsonFormatter;
 use Monolog\Handler\TestHandler;
+use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Processor\TagProcessor;
 use MonologModule\Exception\RuntimeException;
@@ -58,7 +59,8 @@ class LoggerFactoryTest extends TestCase
         $factory = new LoggerFactory();
         $factory->setContainer(new ServiceManager());
 
-        $level = Logger::CRITICAL;
+        $level = class_exists(Level::class) ? Level::Critical : Logger::CRITICAL;
+
         $config = [
             'name' => 'foo',
             'handlers' => [

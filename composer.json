@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "monolog/monolog": "^2.0",
+        "monolog/monolog": "^2.0 || ^3.0",
         "laminas/laminas-servicemanager": "^3.3.2"
     },
     "require-dev": {

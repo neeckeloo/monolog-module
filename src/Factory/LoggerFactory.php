@@ -118,7 +118,7 @@ class LoggerFactory
         if (!empty($options)) {
             $reflection = new ReflectionClass($params['name']);
 
-            return call_user_func_array(array($reflection, 'newInstance'), $options);
+            return call_user_func_array(array($reflection, 'newInstance'), array_values($options));
         }
 
         $class = $params['name'];

@@ -35,6 +35,9 @@
     "extra": {
         "zf": {
             "module": "MonologModule\\Module"
+        },
+	"branch-alias": {
+            "dev-master": "1.1.x-dev"
         }
     }
 }
